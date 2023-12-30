@@ -1,30 +1,31 @@
-# React + TypeScript + Vite
+# React WordSolver
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![mainscreen](https://github.com/davideastmond/react-word-solver/blob/dev/screencaptures/word-solver-img.png)
 
-Currently, two official plugins are available:
+## About
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A web app to assist users with solving crosswords, Wordle and Words With Friends. Perform various string queries.
 
-## Expanding the ESLint configuration
+## Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React w/ Typescript
+- Vitest for unit testing
+- Material UI Components
 
-- Configure the top-level `parserOptions` property like this:
+## Features
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- Search queries and filters
+- Responsive UI
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Developement
+
+1. Clone repository
+2. run `npm i` from folder to install dependencies
+3. Start the project using `npm run dev`
+4. Run tests using `npm t`
+
+## How to use
+
+Use alpha characters to input a query in the white tiles. Use the # as a placeholder (wildcard) symbol.
+
+(to be expanded...)
