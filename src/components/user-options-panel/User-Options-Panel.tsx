@@ -20,7 +20,7 @@ export const UserOptionsPanel = ({ onOptionClicked }: FilterPanelProps) => {
           variant="contained"
           onClick={() => handleUserOptionClicked("refreshWordList")}
         >
-          <Typography>Refresh world list</Typography>
+          <Typography>Refresh word list</Typography>
         </StyledButton>
 
         <StyledButton
