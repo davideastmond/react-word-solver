@@ -1,133 +1,207 @@
-import { Box, Button, Typography, styled } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
+import { WordListFilterType } from "../../word-list-filters/filter.model";
+import { StyledButton } from "../buttons/Buttons";
+import { OptionsContainer } from "../containers/Options-Container";
 
 // This panel should be in a pop over or on the main page.
 // It contains buttons for the filter options
-export const FilterPanel = () => {
+
+interface FilterPanelProps {
+  onFilterOptionClicked?: (option: WordListFilterType) => void;
+  isDisabled?: boolean;
+}
+
+export const FilterPanel = ({
+  onFilterOptionClicked,
+  isDisabled,
+}: FilterPanelProps) => {
+  const handleFilterOptionClicked = (option: WordListFilterType) => {
+    onFilterOptionClicked && onFilterOptionClicked(option);
+  };
+
   return (
-    <Box>
+    <OptionsContainer>
       <Box
         id="wild-card-filters"
         display="flex"
         justifyContent={"space-around"}
       >
-        <StyledFilterOptionButton variant="contained">
+        <StyledButton
+          disabled={isDisabled}
+          variant="contained"
+          onClick={() =>
+            handleFilterOptionClicked(WordListFilterType.WildCardFilter)
+          }
+        >
           <Typography>Wildcard Filter</Typography>
-        </StyledFilterOptionButton>
-        <StyledFilterOptionButton variant="contained">
+        </StyledButton>
+        <StyledButton
+          disabled={isDisabled}
+          variant="contained"
+          onClick={() =>
+            handleFilterOptionClicked(WordListFilterType.WildCardFilterNegate)
+          }
+        >
           <Typography>Wildcard Filter Out</Typography>
-        </StyledFilterOptionButton>
+        </StyledButton>
       </Box>
       <Box
         id="word-size-filters"
         display="flex"
         justifyContent={"space-around"}
       >
-        <StyledFilterOptionButton
+        <StyledButton
+          disabled={isDisabled}
           variant="contained"
           sx={{ backgroundColor: "green" }}
+          onClick={() =>
+            handleFilterOptionClicked(WordListFilterType.WordSizeFilter)
+          }
         >
           <Typography>Word Size</Typography>
-        </StyledFilterOptionButton>
-        <StyledFilterOptionButton
+        </StyledButton>
+        <StyledButton
+          disabled={isDisabled}
           variant="contained"
           sx={{ backgroundColor: "green" }}
+          onClick={() =>
+            handleFilterOptionClicked(WordListFilterType.WordSizeFilterNegate)
+          }
         >
           <Typography>Word Size Filter Out</Typography>
-        </StyledFilterOptionButton>
+        </StyledButton>
       </Box>
       <Box
         id="starts-with-ends-with-filters"
         display="flex"
         justifyContent={"center"}
       >
-        <StyledFilterOptionButton
+        <StyledButton
+          disabled={isDisabled}
           variant="contained"
           sx={{ backgroundColor: "purple" }}
+          onClick={() =>
+            handleFilterOptionClicked(WordListFilterType.StartsWithFilter)
+          }
         >
           <Typography>Starts With</Typography>
-        </StyledFilterOptionButton>
-        <StyledFilterOptionButton
+        </StyledButton>
+        <StyledButton
+          disabled={isDisabled}
           variant="contained"
           sx={{ backgroundColor: "purple" }}
+          onClick={() =>
+            handleFilterOptionClicked(WordListFilterType.StartsWithFilterNegate)
+          }
         >
           <Typography>Starts With Filter Out</Typography>
-        </StyledFilterOptionButton>
-        <StyledFilterOptionButton
+        </StyledButton>
+        <StyledButton
+          disabled={isDisabled}
           variant="contained"
           sx={{ backgroundColor: "purple" }}
+          onClick={() =>
+            handleFilterOptionClicked(WordListFilterType.EndsWithFilter)
+          }
         >
           <Typography>Ends With</Typography>
-        </StyledFilterOptionButton>
-        <StyledFilterOptionButton
+        </StyledButton>
+        <StyledButton
+          disabled={isDisabled}
           variant="contained"
           sx={{ backgroundColor: "purple" }}
+          onClick={() =>
+            handleFilterOptionClicked(WordListFilterType.EndsWithFilterNegate)
+          }
         >
           <Typography>Ends With Filter Out</Typography>
-        </StyledFilterOptionButton>
+        </StyledButton>
       </Box>
       <Box
         id="contains-string-filters"
         display="flex"
         justifyContent={"center"}
       >
-        <StyledFilterOptionButton
+        <StyledButton
+          disabled={isDisabled}
           variant="contained"
           sx={{ backgroundColor: "#DAA520", color: "black" }}
+          onClick={() =>
+            handleFilterOptionClicked(WordListFilterType.ContainsPhrase)
+          }
         >
           <StyledResponsiveTypography>
             Contains Phrase
           </StyledResponsiveTypography>
-        </StyledFilterOptionButton>
-        <StyledFilterOptionButton
+        </StyledButton>
+        <StyledButton
+          disabled={isDisabled}
           variant="contained"
           sx={{ backgroundColor: "#DAA520", color: "black" }}
+          onClick={() =>
+            handleFilterOptionClicked(WordListFilterType.ContainsPhraseNegate)
+          }
         >
           <StyledResponsiveTypography>
             Contains Phrase Filter Out
           </StyledResponsiveTypography>
-        </StyledFilterOptionButton>
-        <StyledFilterOptionButton
+        </StyledButton>
+        <StyledButton
+          disabled={isDisabled}
           variant="contained"
           sx={{ backgroundColor: "#DAA520", color: "black" }}
+          onClick={() =>
+            handleFilterOptionClicked(WordListFilterType.ContainsEachCharacter)
+          }
         >
           <StyledResponsiveTypography>Contains Each</StyledResponsiveTypography>
-        </StyledFilterOptionButton>
-        <StyledFilterOptionButton
+        </StyledButton>
+        <StyledButton
+          disabled={isDisabled}
           variant="contained"
           sx={{ backgroundColor: "#DAA520", color: "black" }}
+          onClick={() =>
+            handleFilterOptionClicked(
+              WordListFilterType.ContainsEachCharacterNegate
+            )
+          }
         >
           <StyledResponsiveTypography>
             Contains Each Filter Out
           </StyledResponsiveTypography>
-        </StyledFilterOptionButton>
-        <StyledFilterOptionButton
+        </StyledButton>
+        <StyledButton
+          disabled={isDisabled}
           variant="contained"
           sx={{ backgroundColor: "#DAA520", color: "black" }}
+          onClick={() =>
+            handleFilterOptionClicked(
+              WordListFilterType.ContainsOrEachCharacter
+            )
+          }
         >
           <StyledResponsiveTypography>
             Contains Each Or
           </StyledResponsiveTypography>
-        </StyledFilterOptionButton>
-        <StyledFilterOptionButton
+        </StyledButton>
+        <StyledButton
+          disabled={isDisabled}
           variant="contained"
           sx={{ backgroundColor: "#DAA520", color: "black" }}
+          onClick={() =>
+            handleFilterOptionClicked(
+              WordListFilterType.ContainsOrEachCharacterNegate
+            )
+          }
         >
           <StyledResponsiveTypography>
             Contains Each Or Filter Out
           </StyledResponsiveTypography>
-        </StyledFilterOptionButton>
+        </StyledButton>
       </Box>
-    </Box>
+    </OptionsContainer>
   );
 };
-
-const StyledFilterOptionButton = styled(Button)((props) => ({
-  width: "200px",
-  margin: 1,
-  [props.theme.breakpoints.down("sm")]: {
-    fontSize: "1rem",
-  },
-}));
 
 const StyledResponsiveTypography = styled(Typography)((props) => ({
   [props.theme.breakpoints.down("sm")]: {

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const inputCount = new Array(8).fill(0);
 
 interface InputAreaProps {
-  onInputAreaUpdated?: (value: string) => void;
+  onInputAreaUpdated?: (isValid: boolean, value: string | null) => void;
 }
 export const InputArea = ({ onInputAreaUpdated }: InputAreaProps) => {
   const [tileState, setTileState] = useState<{ [keyin: string]: string }>({});
@@ -26,9 +26,10 @@ export const InputArea = ({ onInputAreaUpdated }: InputAreaProps) => {
         }
         return acc;
       }, "");
-      onInputAreaUpdated && onInputAreaUpdated(strFilter);
+      onInputAreaUpdated && onInputAreaUpdated(true, strFilter);
       return;
     }
+    onInputAreaUpdated && onInputAreaUpdated(false, null);
   }, [tileState]);
 
   return (
@@ -99,6 +100,9 @@ const StyledUserInputTile = styled(TextField)((props) => ({
 
 const validateInput = (input: [string, string][]): boolean => {
   let fnd: boolean = false;
+
+  if (input.length === 0) return false;
+
   for (let i = inputCount.length - 1; i >= 0; i--) {
     if (!input[i] && !fnd) {
       continue;
@@ -110,5 +114,8 @@ const validateInput = (input: [string, string][]): boolean => {
       fnd = true;
     }
   }
+  if (input.every((element) => element[1] === "" || element[1] === undefined))
+    return false;
+
   return true;
 };

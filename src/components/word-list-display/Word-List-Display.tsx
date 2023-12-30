@@ -10,7 +10,7 @@ export const WordListDisplay = ({ list }: WordListDisplayProps) => {
     return str;
   };
   return (
-    <Box mt={2}>
+    <Box>
       <TextField
         value={renderList()}
         multiline
