@@ -3,7 +3,7 @@ import { WordListFilterType } from "../../word-list-filters/filter.model";
 import { StyledButton } from "../buttons/Buttons";
 import { OptionsContainer } from "../containers/Options-Container";
 
-// This panel should be in a pop over or on the main page.
+// This panel could be in a drawer or on the main page.
 // It contains buttons for the filter options
 
 interface FilterPanelProps {
