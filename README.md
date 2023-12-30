@@ -1,6 +1,6 @@
 # React WordSolver
 
-![mainscreen]()
+![mainscreen](https://github.com/davideastmond/react-word-solver/blob/dev/screencaptures/word-solver-img.png)
 
 ## About
 
