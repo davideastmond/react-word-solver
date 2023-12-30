@@ -5,6 +5,11 @@ describe("Wildcard filter tests", () => {
   describe("positive match", () => {
     const cases: Array<[string[], string, string[]]> = [
       [
+        ["aabac", "bbhac", "ccgac", "ddgac", "eehac", "ffjac", "gghac"],
+        "###ac",
+        ["aabac", "bbhac", "ccgac", "ddgac", "eehac", "ffjac", "gghac"],
+      ],
+      [
         ["mante", "vanatee", "muybhe", "markee", "varkee", "mulbe"],
         "m###e",
         ["mante", "mulbe"],

@@ -4,6 +4,7 @@ export async function loadWordList(
 ): Promise<string[]> {
   const data = await fetch("./wordlist.txt");
   return (await data.text())
+    .toUpperCase()
     .split("\n")
     .filter((word) => word.length >= minLength && word.length <= maxLength);
 }
