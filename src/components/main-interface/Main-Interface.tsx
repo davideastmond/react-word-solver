@@ -14,7 +14,7 @@ import {
 } from "../user-options-panel/User-Options-Panel";
 import { WordListDisplay } from "../word-list-display/Word-List-Display";
 
-export const GameBoard = () => {
+export const MainInterface = () => {
   const [wordList, setWordList] = useState<string[]>([]);
   const [letterCountSliderOpen, setLetterCountSlideOpen] =
     useState<boolean>(false);
