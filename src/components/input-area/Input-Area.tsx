@@ -37,7 +37,8 @@ export const InputArea = ({ onInputAreaUpdated }: InputAreaProps) => {
       {inputCount.map((_, index) => (
         <UserInputTile
           key={index}
-          id={index.toString()}
+          tabIndex={index}
+          id={`box_${index.toString()}`}
           onUpdate={(value: string) =>
             handleTileUpdate(index.toString(), value)
           }
@@ -50,27 +51,48 @@ export const InputArea = ({ onInputAreaUpdated }: InputAreaProps) => {
 interface UserInputTileProps {
   id: string;
   onUpdate: (value: string) => void;
+  tabIndex: number;
 }
 
-const UserInputTile = ({ id, onUpdate }: UserInputTileProps) => {
+const UserInputTile = ({ id, onUpdate, tabIndex }: UserInputTileProps) => {
   const [tileValue, setTileValue] = useState<string>("");
 
-  const handleTileUpdate = (e: any) => {
+  const handleKeyDown = (e: any) => {
     const validCharsString = "abcdefghijklmnopqrstuvwxyz#";
-    if (validCharsString.includes(e.target.value)) {
-      setTileValue(e.target.value);
-      onUpdate && onUpdate(e.target.value);
+    const currentIndex: number = parseInt(e.target.id.slice(4));
+    if (validCharsString.includes(e.key)) {
+      setTileValue(e.key);
+      onUpdate && onUpdate(e.key);
+      setAutoFocus(currentIndex, 1);
+    } else if (e.key === "Backspace" || e.key === "Delete") {
+      setTileValue("");
+      onUpdate && onUpdate("");
+      setAutoFocus(currentIndex, -1);
     }
   };
+
+  const setAutoFocus = (currentIndex: number, direction: 1 | -1) => {
+    const nextIndex = currentIndex + direction;
+    if (nextIndex < 0 || nextIndex > 7) return;
+    const targetElement = document.getElementById(
+      `box_${nextIndex.toString()}`
+    );
+    if (targetElement) {
+      targetElement.focus();
+    }
+  };
+
   return (
     <Box id="input-area">
       <StyledUserInputTile
         id={id}
+        tabIndex={tabIndex}
+        className={`box_${tabIndex}`}
         value={tileValue}
         inputProps={{
           maxLength: 1,
         }}
-        onChange={handleTileUpdate}
+        onKeyDown={handleKeyDown}
       />
     </Box>
   );
@@ -78,22 +100,24 @@ const UserInputTile = ({ id, onUpdate }: UserInputTileProps) => {
 const StyledUserInputTile = styled(TextField)((props) => ({
   "& input": {
     backgroundColor: "white",
-    fontSize: "6rem",
+    fontSize: "5rem",
     padding: "0",
+    paddingRight: "1px",
     fontWeight: "600",
     textTransform: "uppercase",
     textAlign: "center",
-    maxWidth: "90px",
+    maxWidth: "100px",
     borderRadius: "2%",
   },
   [props.theme.breakpoints.down("sm")]: {
     "& input": {
-      fontSize: "2rem",
+      fontSize: "1rem",
     },
   },
   [props.theme.breakpoints.up("md")]: {
     "& input": {
       marginRight: "5%",
+      fontSize: "6rem",
     },
   },
 }));

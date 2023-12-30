@@ -21,13 +21,15 @@ export const MainInterface = () => {
   const [queryMenuOpen, setQueryMenuOpen] = useState<boolean>(false);
   const [isValidInputQuery, setIsValidInputQuery] = useState<boolean>(false);
   const [queryString, setQueryString] = useState<string | null>(null);
+
   useEffect(() => {
-    const loadList = async () => {
-      const res = await loadWordList(5, 8);
-      setWordList(res);
-    };
     loadList();
   }, []);
+
+  const loadList = async () => {
+    const res = await loadWordList(5, 8);
+    setWordList(res);
+  };
 
   // Handle opening and closing the sliding menu for mobile
   const handleDrawerMenuOptionClicked = (option: MenuOption) => {
@@ -70,8 +72,13 @@ export const MainInterface = () => {
     }
   };
 
-  const handleUserOptionClicked = (option: UserOptionPanelOption) => {
+  const handleUserOptionClicked = async (option: UserOptionPanelOption) => {
     // Do something
+    switch (option) {
+      case "refreshWordList":
+        await loadList();
+        break;
+    }
   };
 
   return (
@@ -82,7 +89,7 @@ export const MainInterface = () => {
       <MenuBarContainer>
         <MenuBar onMenuItemClicked={handleDrawerMenuOptionClicked} />
       </MenuBarContainer>
-      <Box display="flex" mt={3}>
+      <Box display="flex" mt={3} mb={1}>
         <Box width={"100%"} mr={2}>
           <WordListDisplay list={wordList} />
         </Box>
@@ -150,7 +157,11 @@ const UserOptionsContainer = styled(Box)(({ theme }) => ({
 }));
 
 const GameBoardContainer = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.down("lg")]: {
+    marginTop: "3rem",
+  },
   [theme.breakpoints.up("lg")]: {
+    marginTop: "0",
     marginLeft: "10%",
     marginRight: "10%",
   },
