@@ -49,7 +49,17 @@ export const HelpPage = () => {
           display="flex"
           justifyContent={"center"}
         >
-          {helpArticle}
+          {helpArticle ?? (
+            <Box>
+              <Box>
+                <Typography> React Word Solver Help Page</Typography>
+              </Box>
+              <br></br>
+              <Typography>
+                Click a help topic from the navigation menu
+              </Typography>
+            </Box>
+          )}
         </Box>
       </Box>
       <DrawerMenu
@@ -100,7 +110,9 @@ function renderHelpPageContent(
     };
     return (
       <Box>
-        <Typography sx={{ fontWeight: "bold", marginTop: "5px" }}>
+        <Typography
+          sx={{ fontWeight: "bold", marginTop: "5px", color: "white" }}
+        >
           {helpSection.title}
         </Typography>
         {helpSection.subtitles.map((subtitle) => (
