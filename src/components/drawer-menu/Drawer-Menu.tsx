@@ -13,6 +13,7 @@ interface DrawerMenuProps {
     height?: CSSVariantType;
     marginTop?: CSSVariantType;
     marginBottom?: CSSVariantType;
+    backgroundColor?: CSSVariantType;
   };
 }
 
@@ -53,6 +54,7 @@ const CustomStyledDrawer = styled(Drawer, {
       width: customStyles?.width || "100%",
       height: customStyles?.height || "auto",
       marginTop: customStyles?.marginTop,
+      backgroundColor: customStyles?.backgroundColor,
     },
     [theme.breakpoints.up("md")]: {
       display: "none",
