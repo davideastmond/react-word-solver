@@ -33,12 +33,17 @@ export const MainInterface = () => {
   };
 
   // Handle opening and closing the sliding menu for mobile
-  const handleDrawerMenuOptionClicked = (option: MenuOption) => {
-    if (option === "query") {
-      setQueryMenuOpen((prev) => !prev);
-    }
-    if (option === "letterCount") {
-      setLetterCountSlideOpen((prev) => !prev);
+  const handleDrawerMenuOptionClicked = async (option: MenuOption) => {
+    switch (option) {
+      case "query":
+        setQueryMenuOpen((prev) => !prev);
+        break;
+      case "letterCount":
+        setLetterCountSlideOpen((prev) => !prev);
+        break;
+      case "reloadWordList":
+        await loadList();
+        break;
     }
   };
 

@@ -102,7 +102,11 @@ export const HelpIcon = () => {
 export const HomeIcon = () => {
   const navigate = useNavigate();
   return (
-    <Button startIcon={<HomeOutlinedIcon />} onClick={() => navigate("/")}>
+    <Button
+      startIcon={<HomeOutlinedIcon />}
+      sx={{ marginRight: "1.5rem" }}
+      onClick={() => navigate("/")}
+    >
       Back to Solver
     </Button>
   );
