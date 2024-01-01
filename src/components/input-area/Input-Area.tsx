@@ -111,7 +111,8 @@ const StyledUserInputTile = styled(TextField)((props) => ({
   },
   [props.theme.breakpoints.down("sm")]: {
     "& input": {
-      fontSize: "1rem",
+      fontSize: "2rem",
+      height: "4rem",
     },
   },
   [props.theme.breakpoints.up("md")]: {

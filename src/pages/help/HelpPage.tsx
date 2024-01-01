@@ -109,7 +109,7 @@ function renderHelpPageContent(
       onOptionClicked && onOptionClicked();
     };
     return (
-      <Box>
+      <Box ml={3}>
         <Typography
           sx={{ fontWeight: "bold", marginTop: "5px", color: "white" }}
         >
