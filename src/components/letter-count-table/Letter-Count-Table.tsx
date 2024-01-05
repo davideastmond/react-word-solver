@@ -16,6 +16,7 @@ const cols: GridColDef[] = [
   },
   { field: "count", headerName: "123", width: 100 },
 ];
+
 export const LetterCountTable = ({ list }: LetterCountTableProps) => {
   return (
     <ResponsiveDataGridContainer>

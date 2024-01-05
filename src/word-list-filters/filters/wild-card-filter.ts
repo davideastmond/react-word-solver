@@ -6,7 +6,7 @@ export const wildCardFilter: WordListFilter = {
   run: (input, filter, options) => {
     // First filter by word length
     return input.filter((word) => {
-      if (options && options.negate) {
+      if (options?.negate) {
         return !(word.length === filter.length && filterFunction(word, filter));
       }
       return word.length === filter.length && filterFunction(word, filter);

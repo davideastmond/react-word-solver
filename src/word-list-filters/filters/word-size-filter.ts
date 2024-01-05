@@ -11,7 +11,7 @@ export const wordSizeFilter: WordListFilter = {
     }
 
     return input.filter((word) => {
-      if (options && options.negate) {
+      if (options?.negate) {
         return word.length !== filter.length;
       }
       return word.length === filter.length;
