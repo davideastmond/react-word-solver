@@ -1,5 +1,6 @@
-import { Box, styled } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 import { useEffect, useState } from "react";
+import { APP_VERSION } from "../../version";
 import { runFilter } from "../../word-list-filters/filter-runner/filter-runner";
 import { WordListFilterType } from "../../word-list-filters/filter.model";
 import { loadWordList } from "../../wordlist/word-list";
@@ -140,6 +141,11 @@ export const MainInterface = () => {
             />
           </DrawerMenu>
         </Box>
+        <footer>
+          <Typography sx={{ color: "white", textAlign: "right" }}>
+            v.{APP_VERSION}
+          </Typography>
+        </footer>
       </GameBoardContainer>
     </>
   );
