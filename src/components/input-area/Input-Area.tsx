@@ -1,5 +1,6 @@
 import { Box, TextField, styled } from "@mui/material";
 import { useEffect, useState } from "react";
+import { validateInput } from "./utils/validate-input";
 
 const inputCount = new Array(8).fill(0);
 
@@ -18,7 +19,7 @@ export const InputArea = ({ onInputAreaUpdated }: InputAreaProps) => {
 
   useEffect(() => {
     const tState = Object.entries(tileState);
-    if (validateInput(tState)) {
+    if (validateInput(inputCount.length, tState)) {
       // Convert to a normal string
       const strFilter: string = tState.reduce((acc: string, cv: string[]) => {
         if (cv[1] !== "" || cv[1] !== undefined) {
@@ -111,7 +112,8 @@ const StyledUserInputTile = styled(TextField)((props) => ({
   },
   [props.theme.breakpoints.down("sm")]: {
     "& input": {
-      fontSize: "1rem",
+      fontSize: "2rem",
+      height: "4rem",
     },
   },
   [props.theme.breakpoints.up("md")]: {
@@ -121,25 +123,3 @@ const StyledUserInputTile = styled(TextField)((props) => ({
     },
   },
 }));
-
-const validateInput = (input: [string, string][]): boolean => {
-  let fnd: boolean = false;
-
-  if (input.length === 0) return false;
-
-  for (let i = inputCount.length - 1; i >= 0; i--) {
-    if (!input[i] && !fnd) {
-      continue;
-    }
-    if (input[i] && (input[i][1] === "" || input[i][1] === undefined)) {
-      if (fnd) return false;
-      continue;
-    } else if (input[i] && input[i][1] !== undefined) {
-      fnd = true;
-    }
-  }
-  if (input.every((element) => element[1] === "" || element[1] === undefined))
-    return false;
-
-  return true;
-};

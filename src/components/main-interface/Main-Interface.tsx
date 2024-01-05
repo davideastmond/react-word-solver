@@ -1,10 +1,12 @@
-import { Box, styled } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 import { useEffect, useState } from "react";
+import { APP_VERSION } from "../../version";
 import { runFilter } from "../../word-list-filters/filter-runner/filter-runner";
 import { WordListFilterType } from "../../word-list-filters/filter.model";
 import { loadWordList } from "../../wordlist/word-list";
 import { DrawerMenu } from "../drawer-menu/Drawer-Menu";
 import { FilterPanel } from "../filter-panel/Filter-Panel";
+import { Header, HelpIcon } from "../header/Header";
 import { InputArea } from "../input-area/Input-Area";
 import { LetterCountTable } from "../letter-count-table/Letter-Count-Table";
 import { MenuBar, MenuOption } from "../menu-bar/Menu-Bar";
@@ -32,12 +34,17 @@ export const MainInterface = () => {
   };
 
   // Handle opening and closing the sliding menu for mobile
-  const handleDrawerMenuOptionClicked = (option: MenuOption) => {
-    if (option === "query") {
-      setQueryMenuOpen((prev) => !prev);
-    }
-    if (option === "letterCount") {
-      setLetterCountSlideOpen((prev) => !prev);
+  const handleDrawerMenuOptionClicked = async (option: MenuOption) => {
+    switch (option) {
+      case "query":
+        setQueryMenuOpen((prev) => !prev);
+        break;
+      case "letterCount":
+        setLetterCountSlideOpen((prev) => !prev);
+        break;
+      case "reloadWordList":
+        await loadList();
+        break;
     }
   };
 
@@ -82,57 +89,65 @@ export const MainInterface = () => {
   };
 
   return (
-    <GameBoardContainer>
-      <Box display="flex" justifyContent={"center"}>
-        <InputArea onInputAreaUpdated={handleInputAreaUpdated} />
-      </Box>
-      <MenuBarContainer>
-        <MenuBar onMenuItemClicked={handleDrawerMenuOptionClicked} />
-      </MenuBarContainer>
-      <Box display="flex" mt={3} mb={1}>
-        <Box width={"100%"} mr={2}>
-          <WordListDisplay list={wordList} />
+    <>
+      <Header additionalIcon={<HelpIcon />} />
+      <GameBoardContainer>
+        <Box display="flex" justifyContent={"center"}>
+          <InputArea onInputAreaUpdated={handleInputAreaUpdated} />
         </Box>
-        <LetterCountContainer>
-          {/* This is view side-by-side in desktop mode*/}
-          <LetterCountTable list={wordList} />
-        </LetterCountContainer>
-      </Box>
-      <Box>
-        <UserOptionsContainer>
-          <UserOptionsPanel onOptionClicked={handleUserOptionClicked} />
-        </UserOptionsContainer>
-        <UserOptionsContainer mt={2}>
-          <FilterPanel
-            isDisabled={isValidInputQuery}
-            onFilterOptionClicked={handleFilterOptionClicked}
-          />
-        </UserOptionsContainer>
-      </Box>
-      <Box>
-        <DrawerMenu
-          open={letterCountSliderOpen}
-          anchor="left"
-          customStyles={{ width: "90%", marginTop: "90px" }}
-          onClose={() => setLetterCountSlideOpen(!letterCountSliderOpen)}
-        >
-          <LetterCountTable list={wordList} />
-        </DrawerMenu>
-      </Box>
-      <Box>
-        <DrawerMenu
-          open={queryMenuOpen}
-          anchor="right"
-          customStyles={{ width: "90%", marginTop: "90px" }}
-          onClose={() => setQueryMenuOpen(!queryMenuOpen)}
-        >
-          <FilterPanel
-            isDisabled={isValidInputQuery}
-            onFilterOptionClicked={handleFilterOptionClicked}
-          />
-        </DrawerMenu>
-      </Box>
-    </GameBoardContainer>
+        <MenuBarContainer>
+          <MenuBar onMenuItemClicked={handleDrawerMenuOptionClicked} />
+        </MenuBarContainer>
+        <Box display="flex" mt={3} mb={1}>
+          <Box width={"100%"} mr={2}>
+            <WordListDisplay list={wordList} />
+          </Box>
+          <LetterCountContainer>
+            {/* This is view side-by-side in desktop mode*/}
+            <LetterCountTable list={wordList} />
+          </LetterCountContainer>
+        </Box>
+        <Box>
+          <UserOptionsContainer>
+            <UserOptionsPanel onOptionClicked={handleUserOptionClicked} />
+          </UserOptionsContainer>
+          <UserOptionsContainer mt={2}>
+            <FilterPanel
+              isDisabled={isValidInputQuery}
+              onFilterOptionClicked={handleFilterOptionClicked}
+            />
+          </UserOptionsContainer>
+        </Box>
+        <Box>
+          <DrawerMenu
+            open={letterCountSliderOpen}
+            anchor="left"
+            customStyles={{ width: "90%", marginTop: "90px" }}
+            onClose={() => setLetterCountSlideOpen(!letterCountSliderOpen)}
+          >
+            <LetterCountTable list={wordList} />
+          </DrawerMenu>
+        </Box>
+        <Box>
+          <DrawerMenu
+            open={queryMenuOpen}
+            anchor="right"
+            customStyles={{ width: "90%", marginTop: "90px" }}
+            onClose={() => setQueryMenuOpen(!queryMenuOpen)}
+          >
+            <FilterPanel
+              isDisabled={isValidInputQuery}
+              onFilterOptionClicked={handleFilterOptionClicked}
+            />
+          </DrawerMenu>
+        </Box>
+        <footer>
+          <Typography sx={{ color: "white", textAlign: "right" }}>
+            v.{APP_VERSION}
+          </Typography>
+        </footer>
+      </GameBoardContainer>
+    </>
   );
 };
 
