@@ -1,6 +1,8 @@
+import { MAX_WORD_LENGTH, MIN_WORD_LENGTH } from "./variables";
+
 export async function loadWordList(
-  minLength: number = 5,
-  maxLength: number = 8
+  minLength: number = MIN_WORD_LENGTH,
+  maxLength: number = MAX_WORD_LENGTH
 ): Promise<string[]> {
   const data = await fetch("./wordlist.txt");
   return (await data.text())
