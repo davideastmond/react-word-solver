@@ -98,6 +98,7 @@ const UserInputTile = ({ id, onUpdate, tabIndex }: UserInputTileProps) => {
     </Box>
   );
 };
+
 const StyledUserInputTile = styled(TextField)((props) => ({
   "& input": {
     backgroundColor: "white",
