@@ -1,8 +1,9 @@
 import { Box, TextField, styled } from "@mui/material";
 import { useEffect, useState } from "react";
+import { MAX_WORD_LENGTH } from "../../wordlist/variables";
 import { validateInput } from "./utils/validate-input";
 
-const inputCount = new Array(8).fill(0);
+const inputCount = new Array(MAX_WORD_LENGTH).fill(0);
 
 interface InputAreaProps {
   onInputAreaUpdated?: (isValid: boolean, value: string | null) => void;
