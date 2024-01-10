@@ -89,7 +89,7 @@ const UserInputTile = ({ id, onUpdate, tabIndex }: UserInputTileProps) => {
       <StyledUserInputTile
         id={id}
         tabIndex={tabIndex}
-        className={`box_${tabIndex}`}
+        className={`box`}
         value={tileValue}
         inputProps={{
           maxLength: 1,
