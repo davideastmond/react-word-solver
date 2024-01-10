@@ -22,13 +22,6 @@ export const UserOptionsPanel = ({ onOptionClicked }: FilterPanelProps) => {
         >
           <Typography>Refresh word list</Typography>
         </StyledButton>
-
-        <StyledButton
-          variant="contained"
-          onClick={() => handleUserOptionClicked("clear")}
-        >
-          <Typography>Clear query string</Typography>
-        </StyledButton>
       </Box>
     </OptionsContainer>
   );
