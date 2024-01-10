@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { StyledButton } from "../buttons/Buttons";
 import { OptionsContainer } from "../containers/Options-Container";
 
-export type UserOptionPanelOption = "refreshWordList" | "clear";
+export type UserOptionPanelOption = "refreshWordList";
 
 interface FilterPanelProps {
   onOptionClicked: (option: UserOptionPanelOption) => void;
