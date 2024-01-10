@@ -1,8 +1,9 @@
 import { Box, TextField, styled } from "@mui/material";
 import { useEffect, useState } from "react";
+import { MAX_WORD_LENGTH } from "../../wordlist/variables";
 import { validateInput } from "./utils/validate-input";
 
-const inputCount = new Array(8).fill(0);
+const inputCount = new Array(MAX_WORD_LENGTH).fill(0);
 
 interface InputAreaProps {
   onInputAreaUpdated?: (isValid: boolean, value: string | null) => void;
@@ -88,7 +89,7 @@ const UserInputTile = ({ id, onUpdate, tabIndex }: UserInputTileProps) => {
       <StyledUserInputTile
         id={id}
         tabIndex={tabIndex}
-        className={`box_${tabIndex}`}
+        className={`box`}
         value={tileValue}
         inputProps={{
           maxLength: 1,
@@ -98,6 +99,7 @@ const UserInputTile = ({ id, onUpdate, tabIndex }: UserInputTileProps) => {
     </Box>
   );
 };
+
 const StyledUserInputTile = styled(TextField)((props) => ({
   "& input": {
     backgroundColor: "white",

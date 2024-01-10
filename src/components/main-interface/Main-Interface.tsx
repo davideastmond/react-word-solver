@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { APP_VERSION } from "../../version";
 import { runFilter } from "../../word-list-filters/filter-runner/filter-runner";
 import { WordListFilterType } from "../../word-list-filters/filter.model";
+import { MAX_WORD_LENGTH, MIN_WORD_LENGTH } from "../../wordlist/variables";
 import { loadWordList } from "../../wordlist/word-list";
 import { DrawerMenu } from "../drawer-menu/Drawer-Menu";
 import { FilterPanel } from "../filter-panel/Filter-Panel";
@@ -29,7 +30,7 @@ export const MainInterface = () => {
   }, []);
 
   const loadList = async () => {
-    const res = await loadWordList(5, 8);
+    const res = await loadWordList(MIN_WORD_LENGTH, MAX_WORD_LENGTH);
     setWordList(res);
   };
 
