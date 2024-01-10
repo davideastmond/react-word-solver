@@ -31,11 +31,14 @@ describe("Wildcard filter tests", () => {
         ["conora", "donora", "eorofg", "bnjkre"],
       ],
     ];
-    test.each(cases)("wild card filters work", (input, filter, result) => {
-      const res: string[] = wildCardFilter.run(input, filter);
-      expect(res).toEqual(result);
-      expect(res).toHaveLength(result.length);
-    });
+    test.each(cases)(
+      "where %s | filter %s | result: %s",
+      (input, filter, result) => {
+        const res: string[] = wildCardFilter.run(input, filter);
+        expect(res).toEqual(result);
+        expect(res).toHaveLength(result.length);
+      }
+    );
   });
   describe("negative match", () => {
     const cases: Array<[string[], string, string[]]> = [
@@ -54,10 +57,18 @@ describe("Wildcard filter tests", () => {
         "#gib",
         ["zarvtur", "zorvber", "zirvmov", "conway", "matchup"], // Nothing gets filtered out
       ],
+      [
+        ["fiver", "biver", "aiver", "diver", "civer", "eiverd"],
+        "#####",
+        ["eiverd"], // All hashes
+      ],
     ];
-    test.each(cases)("negative case", (input, filter, expected) => {
-      const res = wildCardFilter.run(input, filter, { negate: true });
-      expect(res).toEqual(expected);
-    });
+    test.each(cases)(
+      "negative case where %s | filter: %s | result should be %s",
+      (input, filter, expected) => {
+        const res = wildCardFilter.run(input, filter, { negate: true });
+        expect(res).toEqual(expected);
+      }
+    );
   });
 });
