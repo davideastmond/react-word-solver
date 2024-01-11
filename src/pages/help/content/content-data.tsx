@@ -16,6 +16,7 @@ export const HELP_PAGE_CONTENT_DATA: HelpSection[] = [
     subtitles: [
       {
         title: "About",
+        id: 0,
         article: {
           title: "About",
           body: <AboutContent />,
@@ -23,6 +24,7 @@ export const HELP_PAGE_CONTENT_DATA: HelpSection[] = [
       },
       {
         title: "User Interface",
+        id: 1,
         article: {
           title: "User Interface",
           body: <UserInterfaceContent />,
@@ -35,6 +37,7 @@ export const HELP_PAGE_CONTENT_DATA: HelpSection[] = [
     subtitles: [
       {
         title: "Wildcard",
+        id: 2,
         article: {
           title: "Wildcard",
           body: <WildCardFilterHelpContent />,
@@ -42,6 +45,7 @@ export const HELP_PAGE_CONTENT_DATA: HelpSection[] = [
       },
       {
         title: "Word Size",
+        id: 3,
         article: {
           title: "Word Size",
           body: <WordSizeFilterHelpContent />,
@@ -49,6 +53,7 @@ export const HELP_PAGE_CONTENT_DATA: HelpSection[] = [
       },
       {
         title: "Starts With",
+        id: 4,
         article: {
           title: "Starts With",
           body: <StartsWithFilterHelpContent />,
@@ -56,6 +61,7 @@ export const HELP_PAGE_CONTENT_DATA: HelpSection[] = [
       },
       {
         title: "Ends With",
+        id: 5,
         article: {
           title: "Ends With",
           body: <EndsWithFilterHelpContent />,
@@ -63,6 +69,7 @@ export const HELP_PAGE_CONTENT_DATA: HelpSection[] = [
       },
       {
         title: "Contains Phrase",
+        id: 6,
         article: {
           title: "Contains Phrase",
           body: <ContainsPhraseFilterHelpContent />,
@@ -70,6 +77,7 @@ export const HELP_PAGE_CONTENT_DATA: HelpSection[] = [
       },
       {
         title: "Contains Each Character (AND)",
+        id: 7,
         article: {
           title: "Contains Each Character (AND)",
           body: <ContainsEachCharacterAndHelpContent />,
@@ -77,6 +85,7 @@ export const HELP_PAGE_CONTENT_DATA: HelpSection[] = [
       },
       {
         title: "Contains Each Character (OR)",
+        id: 8,
         article: {
           title: "Contains Each Character (OR)",
           body: <ContainsEachCharacterOrHelpContent />,
