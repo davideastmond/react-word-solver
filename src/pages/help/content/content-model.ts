@@ -3,7 +3,8 @@ export interface HelpSection {
   subtitles: Subtitle[];
 }
 
-interface Subtitle {
+export interface Subtitle {
+  id: number;
   title: string;
   article: Article;
 }

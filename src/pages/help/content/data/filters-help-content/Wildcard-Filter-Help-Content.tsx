@@ -20,8 +20,8 @@ export const WildCardFilterHelpContent = () => {
           </Typography>
           <br></br>
           <Typography>
-            The length of the query string as well as the position of each alpha
-            character and wildcard matter.
+            The length of the query string as well as the strict position of
+            each alpha character and wildcard symbol are taken into account.
           </Typography>
           <br></br>
           <Typography>
@@ -32,6 +32,10 @@ export const WildCardFilterHelpContent = () => {
             to query for 5-letter words that end in `ION`.
           </Typography>
           <br></br>
+          <Typography>
+            Using only wildcard characters is similar to the word size filter as
+            it will return words with matching lengths.
+          </Typography>
           <header>
             <CustomStyledTypographyHeader>
               Wildcard Filter Out
@@ -43,6 +47,11 @@ export const WildCardFilterHelpContent = () => {
               whose character position 3, 4, and 5 are `I`, `O`, `N`
               respectively. This effectively returns words that are not 5-letter
               words that end in `ION`.
+            </Typography>
+            <br></br>
+            <Typography>
+              Using only wildcard characters is similar to the Word Size filter
+              as it will filter out words with matching lengths.
             </Typography>
           </header>
         </section>

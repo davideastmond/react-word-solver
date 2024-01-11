@@ -8,7 +8,8 @@ export const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "help",
+    path: "help/:articleId?",
     element: <HelpPage />,
+    errorElement: <HelpPage />,
   },
 ]);
