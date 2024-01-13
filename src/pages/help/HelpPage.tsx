@@ -34,15 +34,17 @@ export const HelpPage = () => {
     };
   });
 
-  const getArticleById = (articleId: number): JSX.Element | null => {
+  const getArticleById = (articleId: string | number): JSX.Element | null => {
     let subtitleContent: Array<Subtitle> = [];
     HELP_PAGE_CONTENT_DATA.forEach(
       (content_data) =>
         (subtitleContent = subtitleContent.concat(...content_data.subtitles))
     );
-    return (
-      subtitleContent.find((st) => st.id === articleId)?.article.body ?? null
-    );
+
+    // Set the about page as default if we can't load a specific article ID
+    articleId = Number(articleId);
+    if (!articleId) articleId = 0;
+    return subtitleContent.find((st) => st.id === articleId)?.article.body!;
   };
 
   const handleCloseOnNavigate = () => {
@@ -57,14 +59,18 @@ export const HelpPage = () => {
         onMenuButtonClicked={handleMenuOpen}
       />
       <Box display="flex" mt={2}>
-        <HelpContentMenu navigateFunction={navigate} />
+        <HelpContentMenu
+          navigateFunction={navigate}
+          articleId={parseInt(articleId!)}
+        />
         <Box
           id="article-body"
           width={"100%"}
           display="flex"
           justifyContent={"center"}
+          mt={3}
         >
-          {articleId && getArticleById(Number(articleId))}
+          {getArticleById(articleId as string)}
         </Box>
       </Box>
       <DrawerMenu
@@ -77,6 +83,7 @@ export const HelpPage = () => {
           {renderHelpPageContent(
             HELP_PAGE_CONTENT_DATA,
             navigate,
+            parseInt(articleId!),
             handleCloseOnNavigate
           )}
         </Box>
@@ -88,15 +95,18 @@ export const HelpPage = () => {
 const HelpContentMenu = ({
   navigateFunction,
   onCloseOnNavigateHandler,
+  articleId,
 }: {
   navigateFunction: NavigateFunction;
   onCloseOnNavigateHandler?: () => void;
+  articleId: number;
 }) => {
   return (
     <ResponsiveHelpContentMenuContainer id="left-col" ml={1}>
       {renderHelpPageContent(
         HELP_PAGE_CONTENT_DATA,
         navigateFunction,
+        articleId,
         onCloseOnNavigateHandler
       )}
     </ResponsiveHelpContentMenuContainer>
@@ -113,6 +123,7 @@ const ResponsiveHelpContentMenuContainer = styled(Box)(({ theme }) => ({
 function renderHelpPageContent(
   mainInput: HelpSection[],
   navigateFunction: NavigateFunction,
+  currentHelpId: number,
   onCloseOnNavigateHandler?: () => void
 ) {
   return mainInput.map((helpSection: HelpSection) => {
@@ -126,6 +137,7 @@ function renderHelpPageContent(
         {helpSection.subtitles.map((subtitle) => (
           <Box>
             <Button
+              sx={{ color: currentHelpId === subtitle.id ? "#DAA520" : null }}
               onClick={() => {
                 navigateFunction(`/help/${subtitle.id}`);
                 onCloseOnNavigateHandler && onCloseOnNavigateHandler();

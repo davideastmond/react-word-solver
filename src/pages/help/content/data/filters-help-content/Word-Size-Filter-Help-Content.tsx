@@ -27,7 +27,9 @@ export const WordSizeFilterHelpContent = () => {
             <CustomStyledTypographyHeader>
               Word Size Filter Out
             </CustomStyledTypographyHeader>
-            <Typography>Filters out words that are not the length</Typography>
+            <Typography>
+              Filters out words that are not matching the length
+            </Typography>
           </header>
         </section>
       </Box>
