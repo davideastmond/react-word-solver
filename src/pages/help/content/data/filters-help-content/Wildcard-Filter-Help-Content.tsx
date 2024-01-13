@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 import {
   CustomStyledTypographyHeader,
   StyledContentBox,
@@ -33,8 +34,9 @@ export const WildCardFilterHelpContent = () => {
           </Typography>
           <br></br>
           <Typography>
-            Using only wildcard characters is similar to the word size filter as
-            it will return words with matching lengths.
+            Using only wildcard characters is similar to the{" "}
+            <Link to="/help/3">Word Size filter</Link> as it will return words
+            with matching lengths.
           </Typography>
           <header>
             <CustomStyledTypographyHeader>
