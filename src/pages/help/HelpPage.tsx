@@ -1,18 +1,21 @@
 import { Box, Button, Typography, styled } from "@mui/material";
 import { useEffect, useState } from "react";
+import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
 import { DrawerMenu } from "../../components/drawer-menu/Drawer-Menu";
 import { Header, HomeIcon } from "../../components/header/Header";
 import { HELP_PAGE_CONTENT_DATA } from "./content/content-data";
-import { HelpSection } from "./content/content-model";
+import { HelpSection, Subtitle } from "./content/content-model";
 import "./style.css";
 
 export const HelpPage = () => {
-  const [helpArticle, setHelpArticle] = useState<JSX.Element | null>(null);
   const [helpMenuOpen, setHelpMenuOpen] = useState<boolean>(false);
 
   const handleMenuOpen = () => {
     setHelpMenuOpen(!helpMenuOpen);
   };
+
+  const navigate = useNavigate();
+  const { articleId } = useParams();
 
   useEffect(() => {
     function handleViewResize() {
@@ -31,9 +34,23 @@ export const HelpPage = () => {
     };
   });
 
-  const handleOptionClicked = () => {
-    setHelpMenuOpen(!helpMenuOpen);
+  const getArticleById = (articleId: string | number): JSX.Element | null => {
+    let subtitleContent: Array<Subtitle> = [];
+    HELP_PAGE_CONTENT_DATA.forEach(
+      (content_data) =>
+        (subtitleContent = subtitleContent.concat(...content_data.subtitles))
+    );
+
+    // Set the about page as default if we can't load a specific article ID
+    articleId = Number(articleId);
+    if (!articleId) articleId = 0;
+    return subtitleContent.find((st) => st.id === articleId)?.article.body!;
   };
+
+  const handleCloseOnNavigate = () => {
+    setHelpMenuOpen((prev) => !prev);
+  };
+
   return (
     <Box>
       <Header
@@ -42,24 +59,18 @@ export const HelpPage = () => {
         onMenuButtonClicked={handleMenuOpen}
       />
       <Box display="flex" mt={2}>
-        <HelpContentMenu setArticleFunction={setHelpArticle} />
+        <HelpContentMenu
+          navigateFunction={navigate}
+          articleId={parseInt(articleId!)}
+        />
         <Box
           id="article-body"
           width={"100%"}
           display="flex"
           justifyContent={"center"}
+          mt={3}
         >
-          {helpArticle ?? (
-            <Box>
-              <Box>
-                <Typography> React Word Solver Help Page</Typography>
-              </Box>
-              <br></br>
-              <Typography>
-                Click a help topic from the navigation menu
-              </Typography>
-            </Box>
-          )}
+          {getArticleById(articleId as string)}
         </Box>
       </Box>
       <DrawerMenu
@@ -71,8 +82,9 @@ export const HelpPage = () => {
         <Box sx={{ backgroundColor: "black" }}>
           {renderHelpPageContent(
             HELP_PAGE_CONTENT_DATA,
-            setHelpArticle,
-            handleOptionClicked
+            navigate,
+            parseInt(articleId!),
+            handleCloseOnNavigate
           )}
         </Box>
       </DrawerMenu>
@@ -81,13 +93,22 @@ export const HelpPage = () => {
 };
 
 const HelpContentMenu = ({
-  setArticleFunction,
+  navigateFunction,
+  onCloseOnNavigateHandler,
+  articleId,
 }: {
-  setArticleFunction: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
+  navigateFunction: NavigateFunction;
+  onCloseOnNavigateHandler?: () => void;
+  articleId: number;
 }) => {
   return (
     <ResponsiveHelpContentMenuContainer id="left-col" ml={1}>
-      {renderHelpPageContent(HELP_PAGE_CONTENT_DATA, setArticleFunction)}
+      {renderHelpPageContent(
+        HELP_PAGE_CONTENT_DATA,
+        navigateFunction,
+        articleId,
+        onCloseOnNavigateHandler
+      )}
     </ResponsiveHelpContentMenuContainer>
   );
 };
@@ -101,13 +122,11 @@ const ResponsiveHelpContentMenuContainer = styled(Box)(({ theme }) => ({
 
 function renderHelpPageContent(
   mainInput: HelpSection[],
-  setArticleFunction: React.Dispatch<React.SetStateAction<JSX.Element | null>>,
-  onOptionClicked?: () => void
+  navigateFunction: NavigateFunction,
+  currentHelpId: number,
+  onCloseOnNavigateHandler?: () => void
 ) {
   return mainInput.map((helpSection: HelpSection) => {
-    const handleOptionClicked = () => {
-      onOptionClicked && onOptionClicked();
-    };
     return (
       <Box ml={3}>
         <Typography
@@ -118,14 +137,10 @@ function renderHelpPageContent(
         {helpSection.subtitles.map((subtitle) => (
           <Box>
             <Button
+              sx={{ color: currentHelpId === subtitle.id ? "#DAA520" : null }}
               onClick={() => {
-                setArticleFunction(
-                  <article>
-                    {<Title articleTitle={subtitle.article.title} />}
-                    {subtitle.article.body}
-                  </article>
-                );
-                handleOptionClicked();
+                navigateFunction(`/help/${subtitle.id}`);
+                onCloseOnNavigateHandler && onCloseOnNavigateHandler();
               }}
             >
               <Typography
@@ -141,11 +156,3 @@ function renderHelpPageContent(
     );
   });
 }
-
-const Title = ({ articleTitle }: { articleTitle: string }) => {
-  return (
-    <Typography mb={4} textAlign={"center"} variant="h4">
-      {articleTitle}
-    </Typography>
-  );
-};
