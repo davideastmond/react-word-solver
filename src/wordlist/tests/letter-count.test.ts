@@ -44,6 +44,7 @@ describe("get letter count tests", () => {
       W: 1,
     });
   });
+
   test("Test with sort function", () => {
     const testList: string[] = [
       "aardvark",
@@ -85,6 +86,7 @@ describe("get letter count tests", () => {
       Z: 1,
     });
   });
+
   test("test with sort function lambda (descending)", () => {
     const testList: string[] = [
       "aardvark",
@@ -129,5 +131,17 @@ describe("get letter count tests", () => {
       B: 1,
       A: 6,
     });
+  });
+
+  test("list is empty", () => {
+    const testList: string[] = [];
+    const res = getLetterCount(testList);
+    expect(res).toEqual({});
+  });
+
+  test("equal strings", () => {
+    const testList: string[] = ["a", "a", "a", "a", "a", "a", "a", "a"];
+    const res = getLetterCount(testList);
+    expect(res).toEqual({ A: 8 });
   });
 });

@@ -1,3 +1,9 @@
+/**
+ * Returns a record of each letter and the number of times it appears in the list
+ * @param list The list of words to count the letters of
+ * @param sortFunction defaults to ascending alphabetical order. Pass in a custom sort function to change this
+ * @returns {Record<string, number>} A record of each letter and the number of times it appears in the list
+ */
 export const getLetterCount = (
   list: string[],
   sortFunction?: (a: [string, number], b: [string, number]) => number

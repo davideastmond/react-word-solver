@@ -20,6 +20,34 @@ describe("input validation tests", () => {
     [
       8,
       [
+        ["0", "r"],
+        ["1", "a"],
+        ["2", "b"],
+        ["3", "t"],
+        ["4", "i"],
+        ["5", "o"],
+        ["6", "n"],
+        ["7", "e"],
+      ],
+      true,
+    ],
+    [
+      8,
+      [
+        ["0", "r"],
+        ["1", "a"],
+        ["2", "b"],
+        ["3", "t"],
+        ["4", ""],
+        ["5", "o"],
+        ["6", "n"],
+        ["7", "e"],
+      ],
+      false,
+    ],
+    [
+      8,
+      [
         ["0", "#"],
         ["1", "#"],
         ["2", "t"],
@@ -44,9 +72,49 @@ describe("input validation tests", () => {
       false,
     ],
     [8, [["7", undefined]], false],
+    [0, [], false],
+    [
+      8,
+      [
+        ["0", "#"],
+        ["1", "#"],
+        ["2", undefined],
+        ["3", "i"],
+        ["4", "o"],
+        ["5", "n"],
+      ],
+      false,
+    ],
+    [
+      8,
+      [
+        ["0", "#"],
+        ["1", "#"],
+        ["2", ""],
+        ["3", "i"],
+        ["4", "o"],
+        ["5", "n"],
+      ],
+      false,
+    ],
+    [
+      8,
+      [
+        ["0", "#"],
+        ["1", "#"],
+        ["2", undefined],
+        ["3", "i"],
+        ["4", "o"],
+        ["5", "n"],
+        ["6", "#"],
+        ["7", "#"],
+      ],
+      false,
+    ],
+    [8, [[], [], [], [], [], [], [], []], false] as any,
   ];
   test.each(testCases)(
-    " evaluates filter string properly",
+    "with %s characters, with input %s evaluates filter string properly, expect result %s",
     (length, input, expectedResult) => {
       const res = validateInput(length, input as any);
       expect(res).toBe(expectedResult);
