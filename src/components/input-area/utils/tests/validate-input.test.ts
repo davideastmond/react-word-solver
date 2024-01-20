@@ -20,6 +20,34 @@ describe("input validation tests", () => {
     [
       8,
       [
+        ["0", "r"],
+        ["1", "a"],
+        ["2", "b"],
+        ["3", "t"],
+        ["4", "i"],
+        ["5", "o"],
+        ["6", "n"],
+        ["7", "e"],
+      ],
+      true,
+    ],
+    [
+      8,
+      [
+        ["0", "r"],
+        ["1", "a"],
+        ["2", "b"],
+        ["3", "t"],
+        ["4", ""],
+        ["5", "o"],
+        ["6", "n"],
+        ["7", "e"],
+      ],
+      false,
+    ],
+    [
+      8,
+      [
         ["0", "#"],
         ["1", "#"],
         ["2", "t"],
@@ -83,6 +111,7 @@ describe("input validation tests", () => {
       ],
       false,
     ],
+    [8, [[], [], [], [], [], [], [], []], false] as any,
   ];
   test.each(testCases)(
     "with %s characters, with input %s evaluates filter string properly, expect result %s",

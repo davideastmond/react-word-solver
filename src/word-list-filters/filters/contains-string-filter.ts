@@ -1,6 +1,8 @@
 import { WordListFilter } from "../filter.model";
 
-// Two versions: contains a string and contains each character
+/**
+ * Contains a contiguous phrase anywhere in the string. No wildcards. It can be negated by setting the negate option to true
+ */
 export const containsPhrase: WordListFilter = {
   name: "containsPhrase",
   description:
@@ -15,6 +17,9 @@ export const containsPhrase: WordListFilter = {
   },
 };
 
+/**
+ * Each individual character in the filter must also be in the word. This is an AND operation. It can be negated by setting the negate option to true
+ */
 export const containsEachCharacter: WordListFilter = {
   name: "containsEachCharacter",
   description:
@@ -39,15 +44,19 @@ export const containsEachCharacter: WordListFilter = {
   },
 };
 
+/**
+ * Each character is checked in the filter as an OR statement: A OR B OR C. It can be negated by setting the negate option to true
+ */
 export const containOrEachCharacter: WordListFilter = {
   name: "containOrEachCharacter",
   description:
     "Each character is checked in the filter as an OR statement: A OR B OR C",
   run: (input, filter, options) => {
+    const filterChars: string[] = filter.split("");
     if (options?.negate) {
       return input.filter((word) => {
         let candidateWord: string | null = null;
-        for (let c of filter.split("")) {
+        for (let c of filterChars) {
           if (word.includes(c)) {
             candidateWord = word;
           }
@@ -57,7 +66,7 @@ export const containOrEachCharacter: WordListFilter = {
       });
     }
     return input.filter((word) => {
-      for (let c of filter.split("")) {
+      for (let c of filterChars) {
         if (word.includes(c)) {
           return true;
         }

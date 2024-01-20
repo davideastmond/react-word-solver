@@ -44,4 +44,11 @@ describe("Word size filters", () => {
       }
     );
   });
+  test("test throw conditions when given valid or invalid input", () => {
+    expect(() => wordSizeFilter.run(["apple"], "a####")).toThrow();
+    expect(() =>
+      wordSizeFilter.run(["apple"], "a####", { negate: true })
+    ).toThrow();
+    expect(() => wordSizeFilter.run(["apple"], "#####")).not.toThrow();
+  });
 });
